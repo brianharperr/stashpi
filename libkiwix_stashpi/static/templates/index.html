@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link type="root" href="{{root}}">
+    <title>StashPi</title>
+    <script>
+      (function() {
+        var t = 'dark';
+        try { t = localStorage.getItem('ib-theme') || 'dark'; } catch (e) {}
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+    <link
+      type="text/css"
+      href="{{root}}/skin/kiwix.css?KIWIXCACHEID"
+      rel="Stylesheet"
+    />
+    <link
+      type="text/css"
+      href="{{root}}/skin/index.css?KIWIXCACHEID"
+      rel="Stylesheet"
+    />
+    <link
+      type="text/css"
+      href="{{root}}/skin/stashpi-theme.css?KIWIXCACHEID"
+      rel="Stylesheet"
+    />
+    <link rel="search" type="application/opensearchdescription+xml" href="{{root}}/catalog/searchdescription.xml" />
+    <meta name="color-scheme" content="dark light">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{root}}/skin/favicon/apple-touch-icon.png?KIWIXCACHEID">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{root}}/skin/favicon/favicon-32x32.png?KIWIXCACHEID">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{root}}/skin/favicon/favicon-16x16.png?KIWIXCACHEID">
+    <link rel="manifest" href="{{root}}/skin/favicon/site.webmanifest?KIWIXCACHEID">
+    <link rel="mask-icon" href="{{root}}/skin/favicon/safari-pinned-tab.svg?KIWIXCACHEID" color="#123b3e">
+    <link rel="shortcut icon" href="{{root}}/skin/favicon/favicon.ico?KIWIXCACHEID">
+    <meta name="msapplication-TileColor" content="#123B3E">
+    <meta name="msapplication-config" content="{{root}}/skin/favicon/browserconfig.xml?KIWIXCACHEID">
+    <meta name="theme-color" content="#123B3E">
+    <script type="text/javascript" src="./skin/polyfills.js?KIWIXCACHEID"></script>
+    <script type="module" src="{{root}}/skin/i18n.js?KIWIXCACHEID" defer></script>
+    <script type="text/javascript" src="{{root}}/skin/languages.js?KIWIXCACHEID" defer></script>
+    <script src="{{root}}/skin/isotope.pkgd.min.js?KIWIXCACHEID" defer></script>
+    <script src="{{root}}/skin/iso6391To3.js?KIWIXCACHEID"></script>
+    <script type="text/javascript" src="{{root}}/skin/index.js?KIWIXCACHEID" defer></script>
+  </head>
+  <body class="ib-mode-library">
+    <noscript>
+      <style>
+        .kiwixNav, .kiwixHomeBody, .usbPanel, .ibThemeFloating {
+          display: none;
+        }
+        html, body {
+          height: 100%;
+        }
+        .noScriptLinkContainer {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          -moz-transform: translateX(-50%) translateY(-50%);
+          -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+          font-size: 16px;
+          font-family: roboto;
+        }
+      </style>
+      <div class="noScriptLinkContainer">
+        <span id="noScriptLinkText">This page cannot be accessed if JavaScript is not enabled. Please head over to <a href="{{root}}/nojs">nojs endpoint.</a></span>
+      </div>
+    </noscript>
+    <div class="ibBar">
+      <div class="ibBar__wordmark"><img class="ibBrandIcon" src="{{root}}/skin/brand/stashpi-icon.svg?KIWIXCACHEID" alt=""><span class="ibWordmarkText">Stash<span class="ibWordPi">Pi</span></span><span class="ibCursor" aria-hidden="true"></span></div>
+      <div class="ibBar__tabs">
+        <button type="button" class="ibTab ibTab--active" id="ibLibraryTabBtn">Library</button>
+        <button type="button" class="ibTab" id="ibUsbTabBtn">USB Drive</button>
+        <button type="button" class="ibTab" id="ibThemeToggle">Light mode</button>
+      </div>
+      <div class="ibBar__meta"><span class="ibDot">●</span> wifi ap · StashPi · 1.1.1.1</div>
+    </div>
+    <div class="ibBoot" id="ibBoot">
+      <div class="ibBoot__title"><img class="ibBoot__icon" src="{{root}}/skin/brand/stashpi-icon.svg?KIWIXCACHEID" alt=""><span class="ibWordmarkText">Stash<span class="ibWordPi">Pi</span></span></div>
+      <div class="ibBoot__line" id="ibBootLine1"><span class="ibBoot__ok">[ OK ]</span> zimdata &nbsp;&nbsp;/zims mounted</div>
+      <div class="ibBoot__line" id="ibBootLine2"><span class="ibBoot__ok">[ OK ]</span> wifi ap &nbsp;&nbsp;StashPi, open network</div>
+      <div class="ibBoot__line" id="ibBootLine3"><span class="ibBoot__ok">[ OK ]</span> kiwix-serve &nbsp;&nbsp;library online</div>
+      <div class="ibBoot__hint">tap to continue</div>
+    </div>
+    <div class="kiwixHomeBody">
+      <div class="book__list"></div>
+      <div id="fadeOut" class="fadeOut"></div>
+    </div>
+    <div class="usbPanel" id="usbPanel">
+      <div class="usbToolbar">
+        <button type="button" class="kiwixButton kiwixButtonHover" id="usbBackBtn">Back to Library</button>
+        <button type="button" class="kiwixButton kiwixButtonHover" id="usbRefreshBtn">Refresh</button>
+        <div class="usbBreadcrumb" id="usbBreadcrumb"></div>
+        <input type="text" id="usbFilterInput" class="kiwixSearch filter hidden" placeholder="Filter this folder">
+      </div>
+      <div id="usbUnsupportedNote" class="usbNote hidden">
+        No USB drive is currently plugged into the device. Plug one into any of its USB ports and click Refresh.
+      </div>
+      <div class="usbLayout" id="usbLayout">
+        <div class="usbFileList" id="usbFileList">
+          <div class="usbFileList__empty">Checking for a USB drive…</div>
+        </div>
+        <div class="usbPreview" id="usbPreview">
+          <div class="usbPreview__empty">Select a file to preview it here.</div>
+        </div>
+      </div>
+    </div>
+    <div class="loader" style="position: absolute; top: 50%"><div class="loader-spinner"></div></div>
+  </body>
+  <script>
+    function closeModal() {
+      for(modal of document.getElementsByClassName('modal-wrapper')) {
+        if ( modal.id == "uiLanguageSelector" ) {
+          window.modalUILanguageSelector.close();
+        } else {
+          modal.remove();
+        }
+      }
+    }
+  </script>
+  <script>
+  (function() {
+    const IB_MODE_KEY = 'ib-mode';
+    const TEXT_EXTENSIONS = ['txt','md','markdown','csv','tsv','log','json','xml','yml','yaml','js','ts','py','c','h','cpp','hpp','css','html','htm','ini','conf','sh'];
+    const IMAGE_EXTENSIONS = ['png','jpg','jpeg','gif','webp','svg','bmp'];
+    const VIDEO_EXTENSIONS = ['mp4','webm','mov'];
+    const AUDIO_EXTENSIONS = ['mp3','wav','ogg'];
+    const MAX_TEXT_PREVIEW_BYTES = 2 * 1024 * 1024;
+
+    // This browses a USB drive plugged into the device running
+    // kiwix-serve (mounted server-side at /mnt/usb by a watcher script),
+    // fetched over HTTP - not a local folder on the visiting device.
+    let currentPath = '';
+    let usbInited = false;
+    let lastMountedState = null;
+
+    function byId(id) { return document.getElementById(id); }
+
+    function formatBytes(bytes) {
+      if (!bytes) return '0 B';
+      const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+      const i = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+      return `${(bytes / Math.pow(1024, i)).toFixed(i === 0 ? 0 : 1)} ${units[i]}`;
+    }
+
+    function extOf(name) {
+      const idx = name.lastIndexOf('.');
+      return idx === -1 ? '' : name.slice(idx + 1).toLowerCase();
+    }
+
+    const IB_THEME_KEY = 'ib-theme';
+
+    function applyThemeButtonLabel(theme) {
+      byId('ibThemeToggle').textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem(IB_THEME_KEY, theme); } catch (e) { /* ignore */ }
+      applyThemeButtonLabel(theme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    function setTab(mode) {
+      document.body.classList.remove('ib-mode-library', 'ib-mode-usb');
+      document.body.classList.add(`ib-mode-${mode}`);
+      byId('ibLibraryTabBtn').classList.toggle('ibTab--active', mode === 'library');
+      byId('ibUsbTabBtn').classList.toggle('ibTab--active', mode === 'usb');
+      try { localStorage.setItem(IB_MODE_KEY, mode); } catch (e) { /* ignore */ }
+      if (mode === 'usb') {
+        initUsbOnce();
+        refreshUsb();
+      }
+    }
+
+    const IB_BOOT_SEEN_KEY = 'ib-boot-seen';
+
+    function runBootSequence() {
+      const boot = byId('ibBoot');
+      let seen = false;
+      try { seen = sessionStorage.getItem(IB_BOOT_SEEN_KEY) === '1'; } catch (e) { /* ignore */ }
+      const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (seen) {
+        boot.classList.add('hidden');
+        return;
+      }
+      try { sessionStorage.setItem(IB_BOOT_SEEN_KEY, '1'); } catch (e) { /* ignore */ }
+
+      const dismiss = () => boot.classList.add('hidden');
+      boot.addEventListener('click', dismiss);
+
+      if (reduceMotion) {
+        setTimeout(dismiss, 400);
+        return;
+      }
+
+      const lines = [byId('ibBootLine1'), byId('ibBootLine2'), byId('ibBootLine3')];
+      lines.forEach((line, idx) => {
+        line.style.animationDelay = `${idx * 0.2}s`;
+      });
+      setTimeout(dismiss, 2200);
+    }
+
+    function usbUrl(action, path) {
+      const params = new URLSearchParams({ action });
+      if (path) params.set('path', path);
+      return '/usbdrive?' + params.toString();
+    }
+
+    async function usbFetchJson(action, path) {
+      const res = await fetch(usbUrl(action, path));
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error((data && data.error) || `HTTP ${res.status}`);
+      }
+      return data;
+    }
+
+    async function checkMounted() {
+      try {
+        const data = await usbFetchJson('status');
+        return !!data.mounted;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function pathSegments() {
+      return currentPath ? currentPath.split('/').filter(Boolean) : [];
+    }
+
+    function renderBreadcrumb() {
+      const el = byId('usbBreadcrumb');
+      el.innerHTML = '';
+      const segs = pathSegments();
+      const crumbs = [{ name: 'USB Drive', path: '' }].concat(
+        segs.map((name, idx) => ({ name, path: segs.slice(0, idx + 1).join('/') }))
+      );
+      crumbs.forEach((crumb, idx) => {
+        const seg = document.createElement('span');
+        seg.className = 'usbBreadcrumb__seg';
+        seg.textContent = crumb.name;
+        seg.addEventListener('click', () => {
+          currentPath = crumb.path;
+          byId('usbFilterInput').value = '';
+          loadCurrentDir();
+        });
+        el.appendChild(seg);
+        if (idx < crumbs.length - 1) {
+          const sep = document.createElement('span');
+          sep.className = 'usbBreadcrumb__sep';
+          sep.textContent = '/';
+          el.appendChild(sep);
+        }
+      });
+    }
+
+    function clearPreview() {
+      byId('usbPreview').innerHTML = '<div class="usbPreview__empty">Select a file to preview it here.</div>';
+    }
+
+    function makePreviewErrorEl() {
+      const el = document.createElement('div');
+      el.className = 'usbPreview__empty';
+      el.textContent = 'Could not preview this file (it may be larger than the 64MB preview limit). Use Download above.';
+      return el;
+    }
+
+    async function showFilePreview(entry, listItemEl) {
+      document.querySelectorAll('.usbFileList__itemActive').forEach(el => el.classList.remove('usbFileList__itemActive'));
+      if (listItemEl) listItemEl.classList.add('usbFileList__itemActive');
+
+      const preview = byId('usbPreview');
+      const fileUrl = usbUrl('file', entry.path);
+      const ext = extOf(entry.name);
+
+      const meta = document.createElement('div');
+      meta.className = 'usbPreview__meta';
+      meta.textContent = `${entry.name} — ${formatBytes(entry.size)}`;
+
+      const linkRow = document.createElement('div');
+      linkRow.className = 'usbPreview__meta';
+      const openLink = document.createElement('a');
+      openLink.href = fileUrl;
+      openLink.target = '_blank';
+      openLink.rel = 'noopener';
+      openLink.textContent = 'Open in new tab';
+      const dlLink = document.createElement('a');
+      dlLink.href = fileUrl;
+      dlLink.download = entry.name;
+      dlLink.textContent = 'Download';
+      linkRow.appendChild(openLink);
+      linkRow.appendChild(dlLink);
+
+      let bodyEl;
+      if (IMAGE_EXTENSIONS.includes(ext)) {
+        bodyEl = document.createElement('img');
+        bodyEl.src = fileUrl;
+        bodyEl.alt = entry.name;
+        bodyEl.onerror = () => bodyEl.replaceWith(makePreviewErrorEl());
+      } else if (VIDEO_EXTENSIONS.includes(ext)) {
+        bodyEl = document.createElement('video');
+        bodyEl.src = fileUrl;
+        bodyEl.controls = true;
+        bodyEl.onerror = () => bodyEl.replaceWith(makePreviewErrorEl());
+      } else if (AUDIO_EXTENSIONS.includes(ext)) {
+        bodyEl = document.createElement('audio');
+        bodyEl.src = fileUrl;
+        bodyEl.controls = true;
+        bodyEl.onerror = () => bodyEl.replaceWith(makePreviewErrorEl());
+      } else if (ext === 'pdf') {
+        bodyEl = document.createElement('embed');
+        bodyEl.className = 'usbPdf';
+        bodyEl.src = fileUrl;
+        bodyEl.type = 'application/pdf';
+      } else if (TEXT_EXTENSIONS.includes(ext)) {
+        if (entry.size > MAX_TEXT_PREVIEW_BYTES) {
+          bodyEl = document.createElement('div');
+          bodyEl.className = 'usbPreview__empty';
+          bodyEl.textContent = `File is ${formatBytes(entry.size)}, too large to preview inline. Use Download above.`;
+        } else {
+          bodyEl = document.createElement('pre');
+          bodyEl.className = 'usbText';
+          bodyEl.textContent = 'Loading…';
+          fetch(fileUrl).then(async (res) => {
+            if (!res.ok) {
+              const data = await res.json().catch(() => null);
+              throw new Error((data && data.error) || `HTTP ${res.status}`);
+            }
+            bodyEl.textContent = await res.text();
+          }).catch((e) => {
+            bodyEl.replaceWith(makePreviewErrorEl());
+          });
+        }
+      } else {
+        bodyEl = document.createElement('div');
+        bodyEl.className = 'usbPreview__empty';
+        bodyEl.textContent = 'No inline preview available for this file type.';
+      }
+
+      preview.innerHTML = '';
+      preview.appendChild(meta);
+      preview.appendChild(linkRow);
+      preview.appendChild(bodyEl);
+    }
+
+    async function loadCurrentDir() {
+      renderBreadcrumb();
+      clearPreview();
+      const listEl = byId('usbFileList');
+      listEl.innerHTML = '<div class="usbFileList__empty">Loading…</div>';
+
+      let entries;
+      try {
+        entries = await usbFetchJson('list', currentPath);
+      } catch (e) {
+        listEl.innerHTML = `<div class="usbFileList__empty">Could not read this folder: ${e.message}</div>`;
+        return;
+      }
+
+      entries = entries.map((e) => ({
+        name: e.name,
+        isDir: e.isDir,
+        size: e.size,
+        path: currentPath ? `${currentPath}/${e.name}` : e.name,
+      }));
+      entries.sort((a, b) => {
+        if (a.isDir !== b.isDir) return a.isDir ? -1 : 1;
+        return a.name.localeCompare(b.name);
+      });
+
+      const filterVal = byId('usbFilterInput').value.trim().toLowerCase();
+      if (filterVal) {
+        entries = entries.filter((e) => e.name.toLowerCase().includes(filterVal));
+      }
+
+      if (!entries.length) {
+        listEl.innerHTML = '<div class="usbFileList__empty">This folder is empty.</div>';
+        return;
+      }
+
+      listEl.innerHTML = '';
+      entries.forEach((entry) => {
+        const item = document.createElement('div');
+        item.className = 'usbFileList__item';
+        const icon = document.createElement('div');
+        icon.className = entry.isDir
+          ? 'usbFileList__icon usbFileList__icon--dir'
+          : 'usbFileList__icon usbFileList__icon--file';
+        const name = document.createElement('div');
+        name.className = 'usbFileList__name';
+        name.textContent = entry.name;
+        item.appendChild(icon);
+        item.appendChild(name);
+        if (entry.isDir) {
+          item.addEventListener('click', () => {
+            currentPath = entry.path;
+            byId('usbFilterInput').value = '';
+            loadCurrentDir();
+          });
+        } else {
+          item.addEventListener('click', () => showFilePreview(entry, item));
+        }
+        listEl.appendChild(item);
+      });
+    }
+
+    async function refreshUsb() {
+      const mounted = await checkMounted();
+      lastMountedState = mounted;
+      byId('usbUnsupportedNote').classList.toggle('hidden', mounted);
+      byId('usbLayout').classList.toggle('hidden', !mounted);
+      if (mounted) {
+        await loadCurrentDir();
+      }
+    }
+
+    function startUsbPoll() {
+      setInterval(async () => {
+        if (!document.body.classList.contains('ib-mode-usb')) return;
+        const mounted = await checkMounted();
+        if (mounted !== lastMountedState) {
+          refreshUsb();
+        }
+      }, 4000);
+    }
+
+    function initUsbOnce() {
+      if (usbInited) return;
+      usbInited = true;
+      byId('usbRefreshBtn').addEventListener('click', refreshUsb);
+      let filterTimer;
+      byId('usbFilterInput').addEventListener('input', () => {
+        clearTimeout(filterTimer);
+        filterTimer = setTimeout(loadCurrentDir, 150);
+      });
+      byId('usbFilterInput').classList.remove('hidden');
+      startUsbPoll();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      runBootSequence();
+      byId('ibThemeToggle').addEventListener('click', toggleTheme);
+      applyThemeButtonLabel(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+      byId('ibLibraryTabBtn').addEventListener('click', () => setTab('library'));
+      byId('ibUsbTabBtn').addEventListener('click', () => setTab('usb'));
+      const usbBackBtn = byId('usbBackBtn');
+      if (usbBackBtn) usbBackBtn.addEventListener('click', () => setTab('library'));
+      let savedMode = 'library';
+      try { savedMode = localStorage.getItem(IB_MODE_KEY) || 'library'; } catch (e) { /* ignore */ }
+      setTab(savedMode);
+    });
+  })();
+  </script>
+</html>

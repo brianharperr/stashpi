@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Info</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>System Info<span class="cursor" aria-hidden="true"></span></h1>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Library summary</h2>
+      <div class="summaryGrid" id="summaryGrid">
+        <div class="note">Loading…</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Installed libraries</h2>
+      <p class="hint">Pulled live from this device's own library index — the date shown is when each library's content was last built, not when it was installed.</p>
+      <div class="tableWrap">
+        <table class="zimTable">
+          <thead>
+            <tr><th>Title</th><th>Content date</th><th>Language</th><th>Articles</th><th>Media files</th></tr>
+          </thead>
+          <tbody id="zimTableBody"></tbody>
+        </table>
+      </div>
+      <div class="note error hidden" id="zimError"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

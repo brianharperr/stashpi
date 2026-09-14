@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="600"
+   height="700"
+   viewBox="0 0 600 700"
+   version="1.1"
+   id="svg10"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <rect
+     width="600"
+     height="700"
+     fill="#000000"
+     id="rect1" />
+  <g
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     id="g10">
+    <path
+       d="M225 112 C225 48 375 48 375 112"
+       fill="none"
+       stroke="#FFFFFF"
+       stroke-width="34"
+       id="path1" />
+    <path
+       d="M240 112 C240 72 360 72 360 112"
+       fill="none"
+       stroke="#FFFFFF"
+       stroke-width="12"
+       opacity=".9"
+       id="path2" />
+    <path
+       d="M146 166 C102 186 78 242 82 318 L98 500 C102 542 130 560 166 548 L190 244 Z"
+       fill="#000000"
+       stroke="#FFFFFF"
+       stroke-width="24"
+       id="path3" />
+    <path
+       d="M454 166 C498 186 522 242 518 318 L502 500 C498 542 470 560 434 548 L410 244 Z"
+       fill="#000000"
+       stroke="#FFFFFF"
+       stroke-width="24"
+       id="path4" />
+    <rect
+       x="130"
+       y="130"
+       width="340"
+       height="500"
+       rx="78"
+       fill="#000000"
+       stroke="#FFFFFF"
+       stroke-width="26"
+       id="rect4" />
+    <path
+       d="M160 202 C210 164 390 164 440 202"
+       fill="none"
+       stroke="#000000"
+       stroke-width="16"
+       opacity=".8"
+       id="path5" />
+    <rect
+       x="186"
+       y="455"
+       width="228"
+       height="116"
+       rx="28"
+       fill="#000000"
+       stroke="#FFFFFF"
+       stroke-width="18"
+       id="rect5" />
+    <path
+       d="M212 485 H390"
+       stroke="#FFFFFF"
+       stroke-width="13"
+       id="path6" />
+    <path
+       d="M228 485 L244 485 L244 512 A 8 8 0 0 1 228 512 Z"
+       fill="#FFFFFF"
+       stroke="none"
+       id="path7" />
+    <path
+       d="M 215.15 307.15 A 120 120 0 0 1 384.85 307.15"
+       fill="none"
+       stroke="#FFFFFF"
+       stroke-width="26"
+       id="path8" />
+    <path
+       d="M 242.72 334.72 A 81 81 0 0 1 357.28 334.72"
+       fill="none"
+       stroke="#FFFFFF"
+       stroke-width="26"
+       id="path9" />
+    <path
+       d="M 270.3 362.3 A 42 42 0 0 1 329.7 362.3"
+       fill="none"
+       stroke="#FFFFFF"
+       stroke-width="26"
+       id="path10" />
+    <circle
+       cx="300"
+       cy="392"
+       r="16"
+       fill="#FFFFFF"
+       stroke="none"
+       id="circle10" />
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Starts the StashPi WiFi access point (open network, SSID "StashPi").
+# hostapd logs to syslog (see hostapd.conf) - check /var/log/messages
+# if the AP doesn't come up; start-stop-daemon backgrounds the process
+# so its own stdio goes nowhere.
+#
+
+PIDFILE=/var/run/hostapd.pid
+
+start() {
+	printf "Starting hostapd: "
+	start-stop-daemon -S -q -b -m -p "$PIDFILE" \
+		--exec /usr/sbin/hostapd -- /etc/hostapd.conf
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+stop() {
+	printf "Stopping hostapd: "
+	start-stop-daemon -K -q -p "$PIDFILE" --exec /usr/sbin/hostapd
+	while start-stop-daemon -K -q -t -p "$PIDFILE" --exec /usr/sbin/hostapd; do
+		sleep 0.1
+	done
+	rm -f "$PIDFILE"
+	echo "OK"
+}
+
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  restart|reload) stop; start ;;
+  *) echo "Usage: $0 {start|stop|restart}"; exit 1 ;;
+esac

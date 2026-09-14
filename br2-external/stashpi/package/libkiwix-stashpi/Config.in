@@ -1,0 +1,17 @@
+config BR2_PACKAGE_LIBKIWIX_STASHPI
+	bool "libkiwix-stashpi"
+	depends on BR2_INSTALL_LIBSTDCPP
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	depends on BR2_USE_WCHAR
+	select BR2_PACKAGE_LIBZIM_STASHPI
+	select BR2_PACKAGE_ICU
+	select BR2_PACKAGE_PUGIXML
+	select BR2_PACKAGE_LIBCURL
+	select BR2_PACKAGE_LIBMICROHTTPD
+	select BR2_PACKAGE_ZLIB
+	select BR2_PACKAGE_XAPIAN
+	help
+	  Kiwix server-side library (kiwix-serve, OPDS, search), built
+	  from the StashPi fork at libkiwix_stashpi.
+
+	  https://github.com/brianharperr/libkiwix_stashpi

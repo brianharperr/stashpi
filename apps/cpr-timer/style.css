@@ -1,0 +1,219 @@
+:root {
+  --bg: #0d1b22;
+  --surface: #0f2b30;
+  --ink: #eaf7f3;
+  --ink-dim: #7fa6a2;
+  --signal: #62e6c4;
+  --live: #5fd97a;
+  --line: #1d3b41;
+  --font: ui-monospace, "Cascadia Code", "SF Mono", "JetBrains Mono", Consolas, "Roboto Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  margin: 0;
+  min-height: 100%;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.topbar h1 {
+  font-size: 1.1rem;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  background: var(--signal);
+  margin-left: 2px;
+  animation: blink 1.1s steps(1) infinite;
+  vertical-align: -0.15em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; }
+}
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--ink-dim);
+}
+
+select, button {
+  font-family: var(--font);
+  font-size: 0.85rem;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 6px 8px;
+  min-height: 36px;
+  cursor: pointer;
+}
+select:focus, button:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 1px;
+}
+button:hover {
+  border-color: var(--signal);
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 16px 40px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.disclaimer {
+  width: 100%;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ink-dim);
+  border: 1px solid var(--signal);
+  background: rgba(255, 138, 61, 0.08);
+  padding: 12px 14px;
+}
+.disclaimer strong {
+  color: var(--ink);
+}
+
+.guidance {
+  width: 100%;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 12px 14px;
+  min-height: 3.2em;
+}
+
+.beatWrap {
+  position: relative;
+  width: min(60vw, 220px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.beat {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 3px solid var(--line);
+  transition: transform 90ms ease-out, background-color 90ms ease-out, border-color 90ms ease-out;
+}
+.beat.pulse {
+  transform: scale(0.86);
+  background: var(--signal);
+  border-color: var(--signal);
+}
+
+.breatheOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(13, 15, 13, 0.92);
+  border: 3px solid var(--live);
+  border-radius: 50%;
+  color: var(--live);
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+.breatheOverlay span {
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: var(--ink);
+  letter-spacing: normal;
+}
+
+.hidden { display: none !important; }
+
+.stats {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+.stat {
+  flex: 1;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 10px 12px;
+  text-align: center;
+}
+.stat__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-dim);
+  margin-bottom: 4px;
+}
+.stat__value {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.stat__unit {
+  font-size: 0.7rem;
+  font-weight: normal;
+  color: var(--ink-dim);
+  margin-left: 2px;
+}
+
+.startBtn {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  background: var(--signal);
+  color: #1a1200;
+  border: 1px solid var(--signal);
+}
+.startBtn:hover {
+  filter: brightness(1.08);
+}
+.startBtn.running {
+  background: var(--bg);
+  color: var(--live);
+  border-color: var(--live);
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: var(--ink-dim);
+  margin: 0;
+}

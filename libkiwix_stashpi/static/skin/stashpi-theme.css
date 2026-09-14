@@ -1,0 +1,581 @@
+/*
+ * StashPi theme — shared token system for the on-device UI.
+ * Dark, monospace, functional-first. Intended to be reused as the
+ * visual identity for the companion product site later.
+ *
+ * Palette pinned to the StashPi brand kit (stashpi-brand-sheet.svg):
+ * Ink #0D1B22, Deep teal #123B3E, Slate #33545C, Mint #62E6C4,
+ * Mint light #8CF2D8. --ib-signal is the brand's Mint accent.
+ */
+
+:root {
+  --ib-bg: #0d1b22;
+  --ib-surface: #0f2b30;
+  --ib-surface-raised: #123b3e;
+  --ib-ink: #eaf7f3;
+  --ib-ink-dim: #7fa6a2;
+  --ib-signal: #62e6c4;
+  --ib-signal-dim: #3fae93;
+  --ib-live: #5fd97a;
+  --ib-line: #1d3b41;
+  --ib-danger: #ff5f56;
+
+  --ib-font: ui-monospace, "Cascadia Code", "SF Mono", "JetBrains Mono", Consolas, "Roboto Mono", monospace;
+
+  --ib-space-1: 4px;
+  --ib-space-2: 8px;
+  --ib-space-3: 12px;
+  --ib-space-4: 16px;
+  --ib-space-5: 24px;
+  --ib-space-6: 32px;
+}
+
+/* Dark is the default identity; light is an opt-in alternative for
+   readability preference, same brand (mint signal, green = live
+   status only), same monospace type, same sharp corners. */
+:root[data-theme="light"] {
+  --ib-bg: #f3fbf9;
+  --ib-surface: #e3f3ee;
+  --ib-surface-raised: #d2e9e1;
+  --ib-ink: #0d1b22;
+  --ib-ink-dim: #4c6e6a;
+  --ib-signal: #128f71;
+  --ib-signal-dim: #0c6b55;
+  --ib-live: #2f8f45;
+  --ib-line: #c7e2da;
+  --ib-danger: #c0392b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: var(--ib-bg);
+  color: var(--ib-ink);
+}
+
+body {
+  font-family: var(--ib-font);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--ib-signal);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ib-signal);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--ib-signal);
+  color: var(--ib-bg);
+}
+
+/* ---- status bar ---- */
+
+.ibBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--ib-space-2) var(--ib-space-4);
+  padding: var(--ib-space-3) var(--ib-space-4);
+  border-bottom: 1px solid var(--ib-line);
+  background: var(--ib-surface);
+}
+
+.ibBar__wordmark {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ib-ink);
+  display: flex;
+  align-items: center;
+  gap: var(--ib-space-2);
+  font-size: 1.05rem;
+}
+.ibBrandIcon {
+  width: 26px;
+  height: 26px;
+  display: block;
+  flex-shrink: 0;
+}
+.ibWordPi {
+  color: var(--ib-signal);
+}
+
+.ibCursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  background: var(--ib-signal);
+  animation: ibBlink 1.1s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ibCursor {
+    animation: none;
+  }
+}
+@keyframes ibBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.ibBar__tabs {
+  display: flex;
+  gap: var(--ib-space-2);
+}
+
+.ibTab {
+  font-family: var(--ib-font);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ib-ink-dim);
+  background: transparent;
+  border: 1px solid var(--ib-line);
+  padding: var(--ib-space-2) var(--ib-space-3);
+  min-height: 44px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.ibTab:hover {
+  color: var(--ib-ink);
+  border-color: var(--ib-signal-dim);
+}
+.ibTab:active {
+  background: var(--ib-surface-raised);
+}
+.ibTab.ibTab--active {
+  color: var(--ib-bg);
+  background: var(--ib-signal);
+  border-color: var(--ib-signal);
+}
+
+.ibBar__meta {
+  width: 100%;
+  order: 3;
+  font-size: 0.8rem;
+  color: var(--ib-ink-dim);
+}
+.ibBar__meta .ibDot {
+  color: var(--ib-live);
+}
+
+/* ---- library / USB panel mode switch, driven by body.ib-mode-* ---- */
+
+body.ib-mode-usb .kiwixNav,
+body.ib-mode-usb .kiwixHomeBody,
+body.ib-mode-usb #fadeOut {
+  display: none !important;
+}
+body.ib-mode-library .usbPanel {
+  display: none !important;
+}
+
+/* ---- library grid (re-skins the stock isotope-driven .book tiles;
+   layout/behavior comes from index.js, unchanged) ---- */
+
+.kiwixHomeBody {
+  padding: var(--ib-space-4);
+}
+
+.book__list {
+  min-height: 40vh;
+}
+
+.book__wrapper {
+  --tile-border-width: 1px;
+  background-color: var(--ib-surface) !important;
+  border: var(--tile-border-width) solid var(--ib-line) !important;
+  border-radius: 0 !important;
+  color: var(--ib-ink) !important;
+  transition: border-color 0.15s, transform 0.1s;
+}
+.book__wrapper:hover {
+  transform: none !important;
+  border-color: var(--ib-signal-dim) !important;
+}
+.book:active .book__wrapper {
+  border-color: var(--ib-signal) !important;
+}
+
+.book__icon {
+  width: 64px !important;
+  height: 64px !important;
+  flex-shrink: 0;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.book__title {
+  font-family: var(--ib-font) !important;
+  font-size: 0.85rem !important;
+  color: var(--ib-ink) !important;
+  line-height: 1.4 !important;
+}
+
+.book__download {
+  background: var(--ib-signal) !important;
+  border-radius: 0 !important;
+}
+.book__download > span {
+  font-family: var(--ib-font) !important;
+  color: var(--ib-bg) !important;
+}
+.book__download:hover {
+  background: var(--ib-signal-dim) !important;
+}
+
+.fadeOut {
+  background: linear-gradient(180deg, rgba(13, 15, 13, 0) 0%, var(--ib-bg) 100%);
+}
+
+/* ---- USB drive panel ---- */
+
+.usbPanel {
+  font-family: var(--ib-font);
+  min-height: calc(100vh - 60px);
+}
+
+.usbToolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ib-space-2) var(--ib-space-3);
+  padding: var(--ib-space-3) var(--ib-space-4);
+  background: var(--ib-surface);
+  border-bottom: 1px solid var(--ib-line);
+}
+
+.usbToolbar .kiwixButton {
+  font-family: var(--ib-font);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ib-ink-dim);
+  background: transparent;
+  border: 1px solid var(--ib-line);
+  border-radius: 0;
+  min-height: 44px;
+  padding: 0 var(--ib-space-3);
+  cursor: pointer;
+}
+.usbToolbar .kiwixButton:hover {
+  color: var(--ib-ink);
+  border-color: var(--ib-signal-dim);
+}
+.usbToolbar .kiwixButton:active {
+  background: var(--ib-surface-raised);
+}
+
+.usbBreadcrumb {
+  font-size: 0.9rem;
+  color: var(--ib-ink);
+  flex: 1;
+  min-width: 160px;
+  word-break: break-word;
+}
+.usbBreadcrumb__seg {
+  cursor: pointer;
+  color: var(--ib-signal);
+}
+.usbBreadcrumb__seg:hover {
+  text-decoration: underline;
+}
+.usbBreadcrumb__sep {
+  margin: 0 6px;
+  color: var(--ib-ink-dim);
+}
+
+#usbFilterInput.kiwixSearch {
+  font-family: var(--ib-font);
+  background: var(--ib-bg);
+  color: var(--ib-ink);
+  border: 1px solid var(--ib-line);
+  border-radius: 0;
+  min-height: 44px;
+  padding: 0 var(--ib-space-3);
+}
+#usbFilterInput.kiwixSearch:focus {
+  border-color: var(--ib-signal);
+}
+
+.usbNote {
+  margin: var(--ib-space-4);
+  padding: var(--ib-space-3) var(--ib-space-4);
+  background: var(--ib-surface);
+  border: 1px solid var(--ib-line);
+  border-left: 3px solid var(--ib-signal-dim);
+  font-size: 0.9rem;
+  color: var(--ib-ink-dim);
+  max-width: 640px;
+}
+
+.usbLayout {
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+}
+
+.usbFileList {
+  width: 340px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--ib-line);
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.usbFileList__item {
+  display: flex;
+  align-items: center;
+  gap: var(--ib-space-2);
+  padding: var(--ib-space-2) var(--ib-space-4);
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--ib-ink);
+  border-bottom: 1px solid var(--ib-line);
+}
+.usbFileList__item:hover {
+  background: var(--ib-surface);
+}
+.usbFileList__item:active,
+.usbFileList__item.usbFileList__itemActive {
+  background: var(--ib-surface-raised);
+  color: var(--ib-signal);
+}
+
+.usbFileList__icon {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  color: var(--ib-ink-dim);
+  border: 1px solid var(--ib-line);
+  padding: 1px 4px;
+  background: none;
+}
+.usbFileList__icon--dir::before {
+  content: "DIR";
+}
+.usbFileList__icon--file::before {
+  content: "FILE";
+}
+
+.usbFileList__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.usbFileList__empty {
+  padding: var(--ib-space-5) var(--ib-space-4);
+  color: var(--ib-ink-dim);
+  font-size: 0.85rem;
+}
+
+.usbPreview {
+  flex: 1;
+  min-width: 0;
+  padding: var(--ib-space-4);
+  max-height: calc(100vh - 120px);
+  overflow: auto;
+}
+
+.usbPreview__empty {
+  color: var(--ib-ink-dim);
+  font-size: 0.9rem;
+  padding: var(--ib-space-6) 0;
+  text-align: center;
+}
+
+.usbPreview__meta {
+  font-size: 0.8rem;
+  color: var(--ib-ink-dim);
+  margin-bottom: var(--ib-space-3);
+  display: flex;
+  gap: var(--ib-space-3);
+  flex-wrap: wrap;
+}
+.usbPreview__meta a {
+  color: var(--ib-signal);
+}
+
+.usbPreview img,
+.usbPreview video {
+  max-width: 100%;
+  max-height: 70vh;
+  display: block;
+}
+
+.usbPreview embed.usbPdf {
+  width: 100%;
+  height: 75vh;
+  border: none;
+}
+
+.usbPreview pre.usbText {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.85rem;
+  font-family: var(--ib-font);
+  background: var(--ib-surface);
+  border: 1px solid var(--ib-line);
+  padding: var(--ib-space-4);
+  max-height: 70vh;
+  overflow: auto;
+  color: var(--ib-ink);
+}
+
+/* ---- boot sequence ---- */
+
+.ibBoot {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--ib-bg);
+  color: var(--ib-ink);
+  font-family: var(--ib-font);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--ib-space-6);
+  cursor: pointer;
+}
+.ibBoot.hidden {
+  display: none;
+}
+.ibBoot__icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+}
+.ibBoot__title {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--ib-space-5);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: var(--ib-space-3);
+}
+.ibBoot__line {
+  font-size: 0.9rem;
+  color: var(--ib-ink-dim);
+  margin-bottom: var(--ib-space-2);
+  opacity: 0;
+  animation: ibFadeIn 0.15s forwards;
+}
+.ibBoot__ok {
+  color: var(--ib-live);
+  font-weight: 700;
+}
+.ibBoot__hint {
+  margin-top: var(--ib-space-5);
+  font-size: 0.8rem;
+  color: var(--ib-ink-dim);
+  opacity: 0;
+  animation: ibFadeIn 0.3s forwards;
+  animation-delay: 1s;
+}
+@keyframes ibFadeIn {
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ibBoot__line, .ibBoot__hint {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ---- mobile ---- */
+
+@media (max-width: 640px) {
+  .usbLayout {
+    flex-direction: column;
+  }
+  .usbFileList {
+    width: 100%;
+    max-height: none;
+    border-right: none;
+  }
+  .usbPreview {
+    max-height: none;
+  }
+  .ibBar__wordmark {
+    font-size: 0.95rem;
+  }
+  .usbBreadcrumb {
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+
+/* ---- viewer chrome (the taskbar shown while reading an article) ----
+   This re-skins the stock taskbar.css selectors from here rather than
+   editing that file directly, same approach as the library tiles above.
+   It does NOT touch #content_iframe - the ZIM's own article content
+   keeps whatever styling the ZIM itself provides. */
+
+#kiwixtoolbar {
+  background: var(--ib-surface) !important;
+  border-bottom: 1px solid var(--ib-line) !important;
+  font-family: var(--ib-font);
+}
+
+.kiwix #kiwixtoolbar button,
+.kiwix #kiwixtoolbar input[type="submit"] {
+  background-color: var(--ib-surface-raised) !important;
+  border: 1px solid var(--ib-line) !important;
+  border-radius: 0 !important;
+  color: var(--ib-ink) !important;
+  font-family: var(--ib-font) !important;
+}
+.kiwix #kiwixtoolbar button:hover,
+.kiwix #kiwixtoolbar input[type="submit"]:hover {
+  border-color: var(--ib-signal-dim) !important;
+}
+
+.kiwix #kiwixtoolbar #kiwixsearchform input[type='text'] {
+  background-color: var(--ib-bg) !important;
+  border: 1px solid var(--ib-line) !important;
+  border-radius: 0 !important;
+  color: var(--ib-ink) !important;
+  font-family: var(--ib-font) !important;
+}
+.kiwix #kiwixtoolbar #kiwixsearchform input[type='text']:focus {
+  border-color: var(--ib-signal) !important;
+}
+
+label[for="kiwixsearchbox"] {
+  color: var(--ib-ink-dim);
+}
+
+#kiwixfooter {
+  background: var(--ib-bg);
+  color: var(--ib-ink-dim);
+  font-family: var(--ib-font);
+}
+
+.autoComplete_wrapper > ul {
+  background: var(--ib-surface) !important;
+  border: 1px solid var(--ib-line) !important;
+  border-radius: 0 !important;
+  font-family: var(--ib-font);
+}
+.autoComplete_wrapper > ul > li {
+  color: var(--ib-ink) !important;
+}
+.autoComplete_wrapper > ul > li:hover,
+.autoComplete_wrapper > ul > li[aria-selected="true"] {
+  background: var(--ib-surface-raised) !important;
+}

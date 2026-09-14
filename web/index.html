@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>StashPi — offline Wikipedia, maps &amp; reference library on a Raspberry Pi</title>
+<meta name="description" content="StashPi is a Raspberry Pi that broadcasts its own WiFi network and serves Wikipedia, world maps, medical references, and more — no internet, no accounts, no subscription. Pick your hardware and library, we build and ship it ready to boot.">
+<link rel="canonical" href="https://www.yourdomain.example/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="StashPi — offline Wikipedia, maps &amp; reference library on a Raspberry Pi">
+<meta property="og:description" content="A self-contained WiFi hotspot that serves Wikipedia, maps, and medical references with no internet connection required. Configure your build and order online.">
+<meta property="og:url" content="https://www.yourdomain.example/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="StashPi — offline reference library on a Raspberry Pi">
+<meta name="twitter:description" content="No internet, no accounts, no subscription. Wikipedia, maps, and more, broadcast over its own WiFi network.">
+<link rel="stylesheet" href="style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#123b3e">
+<link rel="shortcut icon" href="assets/favicon/favicon.ico">
+<meta name="theme-color" content="#123B3E">
+<script>
+  (function() {
+    var t = 'dark';
+    try { t = localStorage.getItem('ib-shop-theme') || 'dark'; } catch (e) {}
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "StashPi",
+  "description": "A Raspberry Pi appliance that broadcasts its own WiFi network and serves an offline copy of Wikipedia, world maps, medical and survival references, and more via a built-in web library — no internet connection required.",
+  "brand": { "@type": "Brand", "name": "StashPi" },
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "lowPrice": "84",
+    "highPrice": "265",
+    "offerCount": "15",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+</head>
+<body>
+  <header class="bar">
+    <div class="bar__wordmark"><a href="/"><img class="brandIcon" src="assets/brand/stashpi-icon.svg" alt="" width="28" height="28"><span class="wordmarkText"><span class="wordStash">Stash</span><span class="wordPi">Pi</span></span><span class="cursor" aria-hidden="true"></span></a></div>
+    <nav class="bar__nav" aria-label="Main">
+      <a href="#shop">Shop</a>
+      <a href="demo.html">Demo</a>
+      <a href="how-to-use.html">How to use</a>
+      <a href="specs.html">Tech specs</a>
+      <a href="warranty.html">Warranty</a>
+    </nav>
+    <div class="bar__actions">
+      <button type="button" class="iconBtn" id="themeToggle">Light mode</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img class="hero__icon" src="assets/brand/stashpi-icon.svg" alt="StashPi" width="88" height="88">
+    <h1>Offline internet, <span class="signalWord">anywhere</span>.</h1>
+    <p>
+      A Raspberry Pi that boots straight into Wikipedia, maps, medical
+      references, and whatever else you pick — no signal, no subscription,
+      no account. Pick your hardware and your library below; we'll build,
+      flash, and test it before it ships.
+    </p>
+    <a class="heroDemoBtn" href="demo.html">Try the live demo →</a>
+    <div class="trustLine">
+      <span><strong>1-year</strong> hardware warranty</span>
+      <span>Boots in under a minute</span>
+      <span>Works with any browser, phone or laptop</span>
+      <a href="warranty.html">Warranty details →</a>
+    </div>
+  </section>
+
+  <section class="features" aria-labelledby="featuresHeading">
+    <h2 id="featuresHeading">What's inside</h2>
+    <div class="featureGrid">
+      <div class="featureCard">
+        <div class="featureCard__title"><span class="glyph">▣</span>Its own WiFi network</div>
+        <p>StashPi broadcasts an open WiFi network — no router, no SIM card, no existing internet needed. Connect and browse to <code style="font-family:inherit;background:var(--surface-raised);padding:2px 6px;border:1px solid var(--line);">1.1.1.1</code>.</p>
+      </div>
+      <div class="featureCard">
+        <div class="featureCard__title"><span class="glyph">▣</span>Full-text search</div>
+        <p>Every included library is fully indexed on the device itself, so search works exactly like it does online — instantly, and offline.</p>
+      </div>
+      <div class="featureCard">
+        <div class="featureCard__title"><span class="glyph">▣</span>Browse your own USB drive</div>
+        <p>Plug a USB drive into the Pi and a "USB Drive" tile appears on the library home page — browse and preview your own files from any connected device. <a href="how-to-use.html#usb-drive">How it works →</a></p>
+      </div>
+      <div class="featureCard">
+        <div class="featureCard__title"><span class="glyph">▣</span>Pick your own library</div>
+        <p>Wikipedia, world maps, medical references, food preservation guides, public-domain books, and more — choose exactly what you want on the card.</p>
+      </div>
+      <div class="featureCard">
+        <div class="featureCard__title"><span class="glyph">▣</span>Bring your own Pi</div>
+        <p>Already own a Raspberry Pi? Order just the pre-flashed microSD card and drop it straight in.</p>
+      </div>
+      <div class="featureCard">
+        <div class="featureCard__title"><span class="glyph">▣</span>A game, for free</div>
+        <p>A lightweight chess game (with an AI opponent, or two-player) ships on every build at no extra charge.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="howItWorks" aria-labelledby="howHeading">
+    <h2 id="howHeading">How it works</h2>
+    <div class="howList">
+      <div class="howList__item">
+        <div class="howList__num">1</div>
+        <div class="howList__body">
+          <h3>Power it on</h3>
+          <p>Plug in power. StashPi boots in under a minute and starts broadcasting its own WiFi network.</p>
+        </div>
+      </div>
+      <div class="howList__item">
+        <div class="howList__num">2</div>
+        <div class="howList__body">
+          <h3>Connect</h3>
+          <p>Join the "StashPi" WiFi network from any phone, tablet, or laptop — no password, no app to install.</p>
+        </div>
+      </div>
+      <div class="howList__item">
+        <div class="howList__num">3</div>
+        <div class="howList__body">
+          <h3>Browse</h3>
+          <p>Open a browser to <code style="font-family:inherit;background:var(--surface-raised);padding:2px 6px;border:1px solid var(--line);">1.1.1.1</code> and start reading, searching, or navigating maps — fully offline.</p>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:var(--space-4);"><a href="how-to-use.html">Full setup &amp; usage guide →</a></p>
+  </section>
+
+  <main class="shop" id="shop">
+    <div class="steps">
+
+      <section class="step">
+        <div class="step__head">
+          <span class="step__num">1</span>
+          <h2>Choose your hardware</h2>
+          <span class="step__hint" id="hwHint"></span>
+        </div>
+        <div class="step__body">
+          <div class="modeToggle" id="modeToggle">
+            <label class="modeToggle__opt">
+              <input type="radio" name="purchaseMode" value="kit" checked>
+              <span>Full kit — Pi + flashed card, ready to boot</span>
+            </label>
+            <label class="modeToggle__opt">
+              <input type="radio" name="purchaseMode" value="cardonly">
+              <span>Card only — I already have a Pi</span>
+            </label>
+          </div>
+          <div class="hwGrid" id="hwGrid"></div>
+        </div>
+      </section>
+
+      <section class="step">
+        <div class="step__head">
+          <span class="step__num">2</span>
+          <h2>Choose your library</h2>
+          <span class="step__hint">content is free — you're paying for the hardware and the card</span>
+        </div>
+        <div class="step__body">
+          <div id="zimGroups"></div>
+          <div class="zimActions">
+            <button type="button" class="linkBtn" id="selectAllZims">Select all</button>
+            <button type="button" class="linkBtn" id="selectNoneZims">Select none</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="step">
+        <div class="step__head">
+          <span class="step__num">3</span>
+          <h2>Storage</h2>
+        </div>
+        <div class="step__body">
+          <div class="storageBox">
+            <div>
+              <div class="storageBox__total" id="totalGbLabel">0.0 GB selected</div>
+            </div>
+            <div>
+              <label for="cardOverride" style="font-size:0.82rem;color:var(--ink-dim);display:block;margin-bottom:4px;">Card size</label>
+              <select id="cardOverride"></select>
+            </div>
+            <div class="storageBox__note" id="cardNote"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="step">
+        <div class="step__head">
+          <span class="step__num">4</span>
+          <h2>Add-ons</h2>
+        </div>
+        <div class="step__body" id="addonList"></div>
+      </section>
+
+    </div>
+
+    <aside class="cart" id="cart">
+      <div class="cart__head">Order summary</div>
+      <div class="cart__lines" id="cartLines">
+        <div class="cart__empty">Pick your hardware to get started.</div>
+      </div>
+      <div class="cart__total">
+        <span>Total</span>
+        <span class="amount" id="cartTotal">$0</span>
+      </div>
+      <div class="cartWarning hidden" id="cartWarning"></div>
+      <button type="button" class="btnPrimary" id="checkoutBtn" disabled>Request this build</button>
+    </aside>
+  </main>
+
+  <section class="faq" aria-labelledby="faqHeading">
+    <h2 id="faqHeading">Frequently asked questions</h2>
+    <details class="faqItem">
+      <summary>Do I need internet or a SIM card to use this?</summary>
+      <p>No. StashPi creates its own WiFi network and serves everything from the microSD card. It's designed to work with zero connectivity of any kind.</p>
+    </details>
+    <details class="faqItem">
+      <summary>How many devices can connect at once?</summary>
+      <p>The WiFi radio and web server can handle several people browsing and searching at the same time. A Raspberry Pi 4 or 5 is recommended if you expect multiple concurrent users.</p>
+    </details>
+    <details class="faqItem">
+      <summary>Can I add my own files?</summary>
+      <p>Yes — plug a USB drive into the Pi and browse it read-only from the library home page, from any connected device. See the <a href="how-to-use.html#usb-drive">how-to-use guide</a> for details.</p>
+    </details>
+    <details class="faqItem">
+      <summary>I already own a Raspberry Pi — do I have to buy another one?</summary>
+      <p>No. Choose "Card only" in step 1 above and tell us which model you own; we'll ship just a pre-flashed microSD card built for that board.</p>
+    </details>
+    <details class="faqItem">
+      <summary>What's covered under warranty?</summary>
+      <p>All hardware we ship — the board, the card, and any add-ons — carries a 1-year warranty against defects. See the full <a href="warranty.html">warranty policy</a>.</p>
+    </details>
+    <details class="faqItem">
+      <summary>Is this legal to resell — what about content licensing?</summary>
+      <p>Every included library uses openly licensed or public-domain content (Wikipedia and similar projects under Creative Commons, Project Gutenberg's public-domain texts, etc.), and the software stack is open source. See <a href="specs.html#software">tech specs</a> for the full stack.</p>
+    </details>
+  </section>
+
+  <footer>
+    <div class="footerBrand"><img src="assets/brand/stashpi-icon.svg" alt="" width="20" height="20"><span class="wordmarkText"><span class="wordStash">Stash</span><span class="wordPi">Pi</span></span></div>
+    StashPi — built on Buildroot, kiwix-serve, and open content.
+    Content licenses vary by source; see each library's own terms.
+    <br>
+    <a href="how-to-use.html">How to use</a> ·
+    <a href="specs.html">Tech specs</a> ·
+    <a href="warranty.html">Warranty</a>
+  </footer>
+
+  <div class="overlay hidden" id="checkoutOverlay">
+    <div class="checkoutBox" id="checkoutForm">
+      <h2>Request this build</h2>
+      <p>
+        This isn't a live payment yet — it sends us your configuration and
+        contact info so we can confirm pricing, availability, and shipping,
+        then follow up with an invoice.
+      </p>
+      <form id="orderForm">
+        <div class="field">
+          <label for="custName">Name</label>
+          <input type="text" id="custName" required>
+        </div>
+        <div class="field">
+          <label for="custEmail">Email</label>
+          <input type="email" id="custEmail" required>
+        </div>
+        <div class="field">
+          <label for="custAddress">Shipping address</label>
+          <textarea id="custAddress" required></textarea>
+        </div>
+        <div class="field">
+          <label for="custNotes">Notes (optional)</label>
+          <textarea id="custNotes"></textarea>
+        </div>
+        <div class="checkoutActions">
+          <button type="button" class="btnGhost" id="cancelCheckout">Cancel</button>
+          <button type="submit" class="btnPrimary">Send request</button>
+        </div>
+      </form>
+    </div>
+    <div class="checkoutBox confirmBox hidden" id="checkoutConfirm">
+      <div class="live">Request sent</div>
+      <p>We'll email you a confirmation and an invoice once we've checked
+        parts availability. Save your order reference below.</p>
+      <div class="orderRef" id="orderRef"></div>
+      <div class="checkoutActions" style="justify-content:center;">
+        <button type="button" class="btnGhost" id="closeConfirm">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

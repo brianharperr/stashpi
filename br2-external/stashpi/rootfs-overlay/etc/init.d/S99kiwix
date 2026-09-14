@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# Starts kiwix-serve against the ZIM library on /zims.
+#
+
+LIBRARY=/zims/library.xml
+PORT=80
+PIDFILE=/var/run/kiwix-serve.pid
+LOGFILE=/var/log/kiwix-serve.log
+
+start() {
+	i=0
+	while [ ! -f "$LIBRARY" ] && [ "$i" -lt 30 ]; do
+		sleep 1
+		i=$((i + 1))
+	done
+
+	if [ ! -f "$LIBRARY" ]; then
+		echo "S99kiwix: $LIBRARY not found, not starting kiwix-serve"
+		return 1
+	fi
+
+	printf "Starting kiwix-serve: "
+	kiwix-serve --port "$PORT" --library "$LIBRARY" >>"$LOGFILE" 2>&1 &
+	echo $! > "$PIDFILE"
+	echo "OK"
+}
+
+stop() {
+	printf "Stopping kiwix-serve: "
+	[ -f "$PIDFILE" ] && kill "$(cat "$PIDFILE")" 2>/dev/null
+	rm -f "$PIDFILE"
+	echo "OK"
+}
+
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  restart|reload) stop; start ;;
+  *) echo "Usage: $0 {start|stop|restart}"; exit 1 ;;
+esac

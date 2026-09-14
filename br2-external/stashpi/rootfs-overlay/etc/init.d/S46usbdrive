@@ -1,0 +1,81 @@
+#!/bin/sh
+#
+# Auto-mounts the first USB storage drive plugged into the Pi at
+# /mnt/usb (read-only), for the "USB Drive" browser in kiwix-serve's
+# home page. Polls rather than relying on hotplug, which isn't
+# reliably wired up on this image (see S44wlan0-ap).
+#
+# USB mass storage always enumerates as /dev/sdX, completely disjoint
+# from the SD card's /dev/mmcblk0 - this can never touch the OS or
+# ZIMDATA partitions.
+#
+
+MOUNTPOINT=/mnt/usb
+MARKER=/run/usbdrive.mounted
+PIDFILE=/var/run/usbdrive-watch.pid
+
+find_partition() {
+	for dev in /sys/block/sd*; do
+		[ -e "$dev" ] || continue
+		devname=$(basename "$dev")
+		found=""
+		for part in "$dev"/"$devname"*; do
+			[ -e "$part" ] || continue
+			found="/dev/$(basename "$part")"
+			break
+		done
+		# No partition table (some sticks ship formatted directly on
+		# the whole device, no partitions) - fall back to the disk itself.
+		if [ -z "$found" ] && [ -b "/dev/$devname" ]; then
+			found="/dev/$devname"
+		fi
+		if [ -n "$found" ]; then
+			echo "$found"
+			return
+		fi
+	done
+}
+
+watch_loop() {
+	modprobe exfat 2>/dev/null
+	modprobe ntfs3 2>/dev/null
+
+	current=""
+	while true; do
+		part=$(find_partition)
+
+		if [ -n "$current" ] && [ ! -b "$current" ]; then
+			umount "$MOUNTPOINT" 2>/dev/null
+			rm -f "$MARKER"
+			current=""
+		fi
+
+		if [ -z "$current" ] && [ -n "$part" ]; then
+			mkdir -p "$MOUNTPOINT"
+			if mount -o ro "$part" "$MOUNTPOINT" 2>/dev/null; then
+				current="$part"
+				touch "$MARKER"
+			fi
+		fi
+
+		sleep 3
+	done
+}
+
+start() {
+	watch_loop &
+	echo $! > "$PIDFILE"
+}
+
+stop() {
+	[ -f "$PIDFILE" ] && kill "$(cat "$PIDFILE")" 2>/dev/null
+	rm -f "$PIDFILE" "$MARKER"
+	umount "$MOUNTPOINT" 2>/dev/null
+}
+
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  restart|reload) stop; start ;;
+  *) echo "Usage: $0 {start|stop|restart}"; exit 1 ;;
+esac

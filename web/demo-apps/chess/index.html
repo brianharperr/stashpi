@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chess</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Chess<span class="cursor" aria-hidden="true"></span></h1>
+    <div class="controls">
+      <label>
+        Mode
+        <select id="modeSelect">
+          <option value="ai">vs Computer</option>
+          <option value="two-player">2 Player</option>
+        </select>
+      </label>
+      <label id="sideRow">
+        Play as
+        <select id="sideSelect">
+          <option value="w">White</option>
+          <option value="b">Black</option>
+        </select>
+      </label>
+      <label id="difficultyRow">
+        Difficulty
+        <select id="difficultySelect">
+          <option value="1">Easy</option>
+          <option value="3" selected>Medium</option>
+          <option value="4">Hard</option>
+        </select>
+      </label>
+      <button type="button" id="newGameBtn">New Game</button>
+      <button type="button" id="undoBtn">Undo</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <div class="boardWrap">
+      <div id="board" class="board"></div>
+      <div id="status" class="status"></div>
+    </div>
+    <aside class="sidebar">
+      <h2>Moves</h2>
+      <ol id="moveList" class="moveList"></ol>
+    </aside>
+  </main>
+
+  <div id="promoOverlay" class="promoOverlay hidden">
+    <div class="promoBox">
+      <div class="promoTitle">Promote to</div>
+      <div class="promoChoices" id="promoChoices"></div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

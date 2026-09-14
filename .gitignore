@@ -1,0 +1,29 @@
+# ZIM content — 400+ GB, never committed. zims/library.xml (the
+# manifest) is tracked for reference; see docs/ZIM_LIBRARY.md for a
+# human-readable summary and docs/VENDORED_DEPENDENCIES.md for how the
+# rest of this file relates to the actual device build.
+/zims/*.zim
+
+# Vendored upstream dependencies (pristine, unmodified) — re-clone at
+# the pinned commits in docs/VENDORED_DEPENDENCIES.md instead of
+# tracking a second copy of someone else's project history here.
+/buildroot/
+/deps/
+/kiwix-tools/
+
+# Host build output — regenerated from the checkouts above, not source.
+/local/
+/tools/dir2zim
+build/
+builddir/
+
+# Backup files this session's tooling leaves alongside things it edits.
+*.bak
+
+# Working scratch space — throwaway logs/backups. Durable helper
+# scripts get promoted into tools/ instead.
+/.scratch-logs/
+
+# Editor/OS noise
+.DS_Store
+*.swp

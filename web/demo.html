@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Live demo — StashPi</title>
+<meta name="description" content="Try StashPi before you buy it: a live preview of the actual library home screen, with six of the bundled mini-apps running for real in your browser.">
+<link rel="canonical" href="https://www.yourdomain.example/demo.html">
+<link rel="stylesheet" href="style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#123b3e">
+<link rel="shortcut icon" href="assets/favicon/favicon.ico">
+<meta name="theme-color" content="#123B3E">
+<script>
+  (function() {
+    var t = 'dark';
+    try { t = localStorage.getItem('ib-shop-theme') || 'dark'; } catch (e) {}
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+  <header class="bar">
+    <div class="bar__wordmark"><a href="/"><img class="brandIcon" src="assets/brand/stashpi-icon.svg" alt="" width="28" height="28"><span class="wordmarkText"><span class="wordStash">Stash</span><span class="wordPi">Pi</span></span><span class="cursor" aria-hidden="true"></span></a></div>
+    <nav class="bar__nav" aria-label="Main">
+      <a href="index.html#shop">Shop</a>
+      <a href="demo.html" aria-current="page">Demo</a>
+      <a href="how-to-use.html">How to use</a>
+      <a href="specs.html">Tech specs</a>
+      <a href="warranty.html">Warranty</a>
+    </nav>
+    <div class="bar__actions">
+      <button type="button" class="iconBtn" id="themeToggle">Light mode</button>
+    </div>
+  </header>
+
+  <div class="docHero">
+    <h1>Try it before you buy it</h1>
+    <p>The grid below is the actual home screen you'll see on the device. Reference libraries are too large to preview on a website, but every mini-app tile is the exact code that ships — click one to use it for real.</p>
+  </div>
+
+  <main class="demoPage">
+    <div class="calloutBox demoNote">
+      <strong>Live app</strong> tiles run the real bundled code, right here in your browser — nothing is simulated. <strong>Reference library</strong> tiles show what's included and how big it is; the actual content (Wikipedia, maps, medical guides, etc.) only ships on the device itself.
+    </div>
+    <div class="demoGrid" id="demoGrid"></div>
+  </main>
+
+  <footer>
+    <div class="footerBrand"><img src="assets/brand/stashpi-icon.svg" alt="" width="20" height="20"><span class="wordmarkText"><span class="wordStash">Stash</span><span class="wordPi">Pi</span></span></div>
+    StashPi — built on Buildroot, kiwix-serve, and open content.
+    Content licenses vary by source; see each library's own terms.
+    <br>
+    <a href="how-to-use.html">How to use</a> ·
+    <a href="specs.html">Tech specs</a> ·
+    <a href="warranty.html">Warranty</a>
+  </footer>
+
+  <div class="overlay hidden" id="demoOverlay">
+    <div class="demoBox">
+      <div class="demoBox__head">
+        <span id="demoTitle"></span>
+        <button type="button" class="iconBtn" id="demoClose">Close</button>
+      </div>
+      <div class="demoBox__body" id="demoBody"></div>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script src="demo.js"></script>
+</body>
+</html>

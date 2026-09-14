@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>How to use StashPi — setup guide</title>
+<meta name="description" content="How to set up and use StashPi: connecting to its WiFi network, browsing and searching the library, reading a plugged-in USB drive, and playing the bundled chess game.">
+<link rel="canonical" href="https://www.yourdomain.example/how-to-use.html">
+<link rel="stylesheet" href="style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#123b3e">
+<link rel="shortcut icon" href="assets/favicon/favicon.ico">
+<meta name="theme-color" content="#123B3E">
+<script>
+  (function() {
+    var t = 'dark';
+    try { t = localStorage.getItem('ib-shop-theme') || 'dark'; } catch (e) {}
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+  <header class="bar">
+    <div class="bar__wordmark"><a href="/"><img class="brandIcon" src="assets/brand/stashpi-icon.svg" alt="" width="28" height="28"><span class="wordmarkText"><span class="wordStash">Stash</span><span class="wordPi">Pi</span></span><span class="cursor" aria-hidden="true"></span></a></div>
+    <nav class="bar__nav" aria-label="Main">
+      <a href="index.html#shop">Shop</a>
+      <a href="demo.html">Demo</a>
+      <a href="how-to-use.html" aria-current="page">How to use</a>
+      <a href="specs.html">Tech specs</a>
+      <a href="warranty.html">Warranty</a>
+    </nav>
+    <div class="bar__actions">
+      <button type="button" class="iconBtn" id="themeToggle">Light mode</button>
+    </div>
+  </header>
+
+  <div class="docHero">
+    <h1>How to use StashPi</h1>
+    <p>Everything from first boot to browsing your own files, in the order you'll actually do it.</p>
+  </div>
+
+  <main class="docPage">
+    <section id="first-boot">
+      <h2>1. First boot</h2>
+      <p>Insert the microSD card (already flashed if you ordered a full kit or a pre-flashed card) and connect power. There's no power switch — plugging in power turns it on, and unplugging it turns it off.</p>
+      <p>StashPi boots in well under a minute. Once it's up, it starts broadcasting its own WiFi network — you don't need a router, a SIM card, or any existing internet connection.</p>
+      <div class="calloutBox">Nothing to configure on first boot. There's no setup wizard, no account to create, and no software to install on your devices.</div>
+    </section>
+
+    <section id="connect">
+      <h2>2. Connect to the network</h2>
+      <p>On your phone, tablet, or laptop, open WiFi settings and join the network named <strong>StashPi</strong>. It's an open network — no password required.</p>
+      <p>Once connected, open any web browser and go to:</p>
+      <p style="text-align:center;"><code style="font-size:1.1rem;">http://1.1.1.1</code></p>
+      <p>This works from any device with a browser — phones, tablets, laptops, Chromebooks — no app install needed.</p>
+    </section>
+
+    <section id="browse">
+      <h2>3. Browse and search the library</h2>
+      <p>You'll land on the library home page, showing a tile for each reference collection you selected when ordering (Wikipedia, maps, medical references, and so on). Tap a tile to open it.</p>
+      <p>Inside each library, use the search bar the same way you would online — it's fully indexed on the device, so results come back instantly with no internet required.</p>
+      <p>A "Main Page" button always returns you to that library's home/contents page from anywhere inside it.</p>
+    </section>
+
+    <section id="usb-drive">
+      <h2>4. Browse a USB drive</h2>
+      <p>StashPi can also browse files from a USB drive plugged directly into the Pi — not your phone or laptop's own storage, but a drive physically inserted into the device.</p>
+      <ol>
+        <li>Plug a USB drive (FAT32, exFAT, NTFS, or ext4 formatted) into one of the Pi's USB ports.</li>
+        <li>Wait a few seconds for it to be detected and mounted automatically.</li>
+        <li>On the library home page, open the <strong>USB Drive</strong> tile.</li>
+        <li>Browse folders and preview files — images, PDFs, text, audio, and video — from any device connected to the network.</li>
+      </ol>
+      <div class="calloutBox">The drive is mounted read-only: StashPi can display your files but can never modify or delete anything on it. Unplugging the drive removes the tile until another one is inserted.</div>
+    </section>
+
+    <section id="chess">
+      <h2>5. Play chess</h2>
+      <p>A lightweight chess game ships on every build, listed as its own tile on the library home page. Play against a built-in AI opponent, or pass the device between two players.</p>
+    </section>
+
+    <section id="power-off">
+      <h2>6. Turning it off</h2>
+      <p>Simply unplug the power. There's no shutdown sequence required — the device doesn't hold any unsaved state, since it's a read-only reference library.</p>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Troubleshooting</h2>
+      <h3>I don't see the "StashPi" WiFi network</h3>
+      <p>Give it a full minute after powering on. If it still doesn't appear, confirm the device has power (most builds show an activity light) and that you're within a normal WiFi range — a few rooms or roughly 30 feet indoors.</p>
+      <h3>The page won't load at 1.1.1.1</h3>
+      <p>Make sure your device is actually joined to the "StashPi" network, not a previously remembered network with a similar name. Some phones auto-disconnect from open WiFi networks without internet access — check your WiFi settings if the connection seems to drop.</p>
+      <h3>My USB drive doesn't show up</h3>
+      <p>Confirm it's formatted as FAT32, exFAT, NTFS, or ext4. Try a different USB port, and give it 10–15 seconds after inserting. If it still doesn't appear, the drive's filesystem may be unsupported or damaged.</p>
+      <p>Still stuck? See the <a href="warranty.html">warranty page</a> for how to reach support.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footerBrand"><img src="assets/brand/stashpi-icon.svg" alt="" width="20" height="20"><span class="wordmarkText"><span class="wordStash">Stash</span><span class="wordPi">Pi</span></span></div>
+    StashPi — built on Buildroot, kiwix-serve, and open content.
+    Content licenses vary by source; see each library's own terms.
+    <br>
+    <a href="how-to-use.html">How to use</a> ·
+    <a href="specs.html">Tech specs</a> ·
+    <a href="warranty.html">Warranty</a>
+  </footer>
+
+  <script src="theme.js"></script>
+</body>
+</html>

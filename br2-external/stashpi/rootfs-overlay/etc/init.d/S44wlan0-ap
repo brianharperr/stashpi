@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# Brings up wlan0 as a static-IP interface for the StashPi WiFi
+# access point. hostapd (S45) and dnsmasq bind to this.
+#
+
+IFACE=wlan0
+IPADDR=1.1.1.1/24
+
+start() {
+	# The onboard wifi chip is detected on the SDIO bus at boot, but
+	# nothing hotplug-loads its driver automatically on this image -
+	# load it explicitly rather than rely on that.
+	modprobe brcmfmac 2>/dev/null
+
+	i=0
+	while [ ! -d "/sys/class/net/$IFACE" ] && [ "$i" -lt 15 ]; do
+		sleep 1
+		i=$((i + 1))
+	done
+
+	if [ ! -d "/sys/class/net/$IFACE" ]; then
+		echo "S44wlan0-ap: $IFACE never appeared, wifi AP will not start"
+		return 1
+	fi
+
+	ip link set "$IFACE" up
+	ip addr add "$IPADDR" dev "$IFACE" 2>/dev/null
+}
+
+stop() {
+	ip addr flush dev "$IFACE" 2>/dev/null
+	ip link set "$IFACE" down 2>/dev/null
+}
+
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  restart|reload) stop; start ;;
+  *) echo "Usage: $0 {start|stop|restart}"; exit 1 ;;
+esac

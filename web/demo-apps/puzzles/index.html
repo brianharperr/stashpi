@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puzzles</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Puzzles<span class="cursor" aria-hidden="true"></span></h1>
+    <div class="modeTabs" id="modeTabs">
+      <button type="button" class="modeTab active" data-mode="sudoku">Sudoku</button>
+      <button type="button" class="modeTab" data-mode="wordsearch">Word Search</button>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <section id="sudokuPane" class="pane">
+      <div class="controls">
+        <label>
+          Difficulty
+          <select id="sudokuDifficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+        <button type="button" id="sudokuNewBtn">New Game</button>
+        <button type="button" id="sudokuCheckBtn">Check</button>
+        <button type="button" id="sudokuSolveBtn">Solve</button>
+        <button type="button" id="sudokuResetBtn">Reset</button>
+        <button type="button" id="sudokuNotesBtn" aria-pressed="false">Notes: Off</button>
+      </div>
+      <div class="sudokuWrap">
+        <div id="sudokuGrid" class="sudokuGrid" role="grid" aria-label="Sudoku grid"></div>
+        <div class="digitPad" id="digitPad"></div>
+      </div>
+      <div class="status" id="sudokuStatus"></div>
+    </section>
+
+    <section id="wordsearchPane" class="pane hidden">
+      <div class="controls">
+        <label>
+          Theme
+          <select id="wsTheme">
+            <option value="camping" selected>Camping</option>
+            <option value="wildlife">Wildlife</option>
+            <option value="kitchen">Kitchen</option>
+          </select>
+        </label>
+        <label>
+          Size
+          <select id="wsSize">
+            <option value="12" selected>12 x 12</option>
+            <option value="15">15 x 15</option>
+          </select>
+        </label>
+        <button type="button" id="wsNewBtn">New Puzzle</button>
+        <span class="wsCount" id="wsCount"></span>
+      </div>
+      <div class="wsWrap">
+        <div id="wsGrid" class="wsGrid"></div>
+        <div class="wsWords" id="wsWords">
+          <h2>Find these</h2>
+          <ul id="wsWordList"></ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="sudoku.js"></script>
+  <script src="wordsearch.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

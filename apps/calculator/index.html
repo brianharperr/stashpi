@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Calculator<span class="cursor" aria-hidden="true"></span></h1>
+    <div class="controls">
+      <label class="toggle">
+        <input type="checkbox" id="angleModeToggle">
+        <span id="angleModeLabel">Deg</span>
+      </label>
+      <span class="memFlag hidden" id="memFlag">M</span>
+    </div>
+  </header>
+
+  <main class="calc">
+    <div class="screen">
+      <div class="expr" id="exprLine">&nbsp;</div>
+      <div class="result" id="resultLine">0</div>
+    </div>
+
+    <div class="pad">
+      <button type="button" class="key fn" data-action="mc">MC</button>
+      <button type="button" class="key fn" data-action="mr">MR</button>
+      <button type="button" class="key fn" data-action="mminus">M&minus;</button>
+      <button type="button" class="key fn" data-action="mplus">M+</button>
+      <button type="button" class="key fn" data-action="clear">C</button>
+
+      <button type="button" class="key fn" data-action="func" data-value="sin">sin</button>
+      <button type="button" class="key fn" data-action="func" data-value="cos">cos</button>
+      <button type="button" class="key fn" data-action="func" data-value="tan">tan</button>
+      <button type="button" class="key fn" data-action="backspace">&larr;</button>
+      <button type="button" class="key op" data-action="paren" data-value="(">(</button>
+
+      <button type="button" class="key fn" data-action="func" data-value="log">log</button>
+      <button type="button" class="key fn" data-action="func" data-value="ln">ln</button>
+      <button type="button" class="key fn" data-action="func" data-value="√">&radic;</button>
+      <button type="button" class="key op" data-action="insert" data-value="^">x^y</button>
+      <button type="button" class="key op" data-action="paren" data-value=")">)</button>
+
+      <button type="button" class="key fn" data-action="square">x&sup2;</button>
+      <button type="button" class="key digit" data-action="digit" data-value="7">7</button>
+      <button type="button" class="key digit" data-action="digit" data-value="8">8</button>
+      <button type="button" class="key digit" data-action="digit" data-value="9">9</button>
+      <button type="button" class="key op" data-action="insert" data-value="÷">&divide;</button>
+
+      <button type="button" class="key fn" data-action="reciprocal">1/x</button>
+      <button type="button" class="key digit" data-action="digit" data-value="4">4</button>
+      <button type="button" class="key digit" data-action="digit" data-value="5">5</button>
+      <button type="button" class="key digit" data-action="digit" data-value="6">6</button>
+      <button type="button" class="key op" data-action="insert" data-value="×">&times;</button>
+
+      <button type="button" class="key fn" data-action="negate">&plusmn;</button>
+      <button type="button" class="key digit" data-action="digit" data-value="1">1</button>
+      <button type="button" class="key digit" data-action="digit" data-value="2">2</button>
+      <button type="button" class="key digit" data-action="digit" data-value="3">3</button>
+      <button type="button" class="key op" data-action="insert" data-value="-">&minus;</button>
+
+      <button type="button" class="key fn" data-action="percent">%</button>
+      <button type="button" class="key digit" data-action="digit" data-value="0">0</button>
+      <button type="button" class="key digit" data-action="digit" data-value=".">.</button>
+      <button type="button" class="key op" data-action="equals">=</button>
+      <button type="button" class="key op" data-action="insert" data-value="+">+</button>
+
+      <button type="button" class="key fn wide" data-action="const" data-value="π">&pi;</button>
+      <button type="button" class="key fn wide" data-action="const" data-value="e">e</button>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

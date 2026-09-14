@@ -1,0 +1,13 @@
+config BR2_PACKAGE_KIWIX_TOOLS_STASHPI
+	bool "kiwix-tools-stashpi"
+	depends on BR2_INSTALL_LIBSTDCPP
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	select BR2_PACKAGE_LIBKIWIX_STASHPI
+	select BR2_PACKAGE_LIBZIM_STASHPI
+	select BR2_PACKAGE_DOCOPT_CPP
+	help
+	  kiwix-serve / kiwix-manage / kiwix-search command line tools,
+	  built from the local kiwix-tools checkout against the
+	  StashPi libkiwix/libzim.
+
+	  https://github.com/kiwix/kiwix-tools

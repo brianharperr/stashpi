@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CPR Timer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>CPR Timer<span class="cursor" aria-hidden="true"></span></h1>
+    <div class="controls">
+      <label>
+        Patient
+        <select id="modeSelect">
+          <option value="adult">Adult</option>
+          <option value="child">Child</option>
+          <option value="infant">Infant</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <main class="layout">
+    <div class="disclaimer" role="note">
+      <strong>This is a rhythm/timing aid only — it is not a substitute for
+      CPR training or certification.</strong> Call your local emergency
+      number immediately and follow the dispatcher's instructions. If
+      trained, begin CPR right away; use this tool only to help hold a
+      steady compression rate.
+    </div>
+
+    <div class="guidance" id="guidance"></div>
+
+    <div class="beatWrap">
+      <div class="beat" id="beat"></div>
+      <div class="breatheOverlay hidden" id="breatheOverlay">
+        STOP<br><span>Give 2 rescue breaths</span>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat__label">Compressions</div>
+        <div class="stat__value" id="countValue">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">Elapsed</div>
+        <div class="stat__value" id="timeValue">00:00</div>
+      </div>
+      <div class="stat">
+        <div class="stat__label">Rate target</div>
+        <div class="stat__value">110<span class="stat__unit">/min</span></div>
+      </div>
+    </div>
+
+    <button type="button" class="startBtn" id="startBtn">Start</button>
+    <p class="hint">Space bar also starts / stops.</p>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

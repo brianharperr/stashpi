@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Almanac</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Almanac<span class="cursor" aria-hidden="true"></span></h1>
+  </header>
+
+  <main class="layout">
+    <section class="panel inputsPanel">
+      <h2>Date &amp; location</h2>
+      <div class="field">
+        <label for="dateInput">Date</label>
+        <input type="date" id="dateInput">
+      </div>
+      <div class="field">
+        <label for="presetSelect">Example location</label>
+        <select id="presetSelect">
+          <option value="">— pick an example —</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="latInput">Latitude (°, north positive)</label>
+        <input type="number" id="latInput" step="0.0001" min="-90" max="90" placeholder="e.g. 39.7392">
+      </div>
+      <div class="field">
+        <label for="lonInput">Longitude (°, east positive)</label>
+        <input type="number" id="lonInput" step="0.0001" min="-180" max="180" placeholder="e.g. -104.9903">
+      </div>
+      <div class="note">
+        Times assume this device's own clock/timezone matches the location
+        entered above — if you're viewing this from somewhere else, the
+        clock times will be off by that difference.
+      </div>
+    </section>
+
+    <section class="panel" id="sunPanel">
+      <h2>Sun</h2>
+      <div id="sunBody" class="placeholder">Enter a latitude and longitude to calculate.</div>
+    </section>
+
+    <section class="panel" id="moonPanel">
+      <h2>Moon</h2>
+      <div id="moonBody" class="placeholder">Enter a date to calculate.</div>
+    </section>
+
+    <section class="panel tidePanel" id="tidePanel">
+      <h2>Rough tide window <span class="approxTag">approximate</span></h2>
+      <div id="tideBody" class="placeholder">Enter a latitude and longitude to estimate.</div>
+      <p class="disclaimer">
+        Rough estimate only, based on the moon's approximate transit time —
+        actual tide times depend on local coastline shape and seabed
+        depth and can differ from this by hours. Never use this for
+        navigation or safety-critical planning; consult an official local
+        tide table.
+      </p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

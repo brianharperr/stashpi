@@ -1,0 +1,76 @@
+#!/bin/sh
+#
+# Provisions and mounts the ZIM data partition: the rest of the boot
+# disk beyond the small OS rootfs (capped at 470GB), used to hold the
+# kiwix library (too large to bake into the OS image itself).
+#
+
+MOUNTPOINT=/zims
+LABEL=ZIMDATA
+# Cap ZIMDATA at 470GB even when the card is bigger - kept in sync with
+# init-flash.sh's MAX_ZIMDATA_BYTES.
+MAX_ZIMDATA_BYTES=$((470 * 1000 * 1000 * 1000))
+
+find_disk() {
+	root_src=$(findmnt -n -o SOURCE /)
+	case "$root_src" in
+		*mmcblk*|*nvme*) echo "$root_src" | sed -E 's/p[0-9]+$//' ;;
+		*) echo "$root_src" | sed -E 's/[0-9]+$//' ;;
+	esac
+}
+
+part_name() {
+	case "$1" in
+		*mmcblk*|*nvme*) echo "${1}p${2}" ;;
+		*) echo "${1}${2}" ;;
+	esac
+}
+
+start() {
+	disk=$(find_disk)
+	part3=$(part_name "$disk" 3)
+
+	if [ ! -b "$part3" ]; then
+		echo "S41zimdata: creating ZIM data partition on $disk"
+		free_bytes=$(sfdisk -F --bytes "$disk" 2>/dev/null | head -1 | sed -n 's/.*, \([0-9]*\) bytes,.*/\1/p')
+		if [ -n "$free_bytes" ] && [ "$free_bytes" -gt "$MAX_ZIMDATA_BYTES" ]; then
+			echo "S41zimdata: $free_bytes bytes free, capping ZIMDATA at $MAX_ZIMDATA_BYTES bytes"
+			echo ",$((MAX_ZIMDATA_BYTES / 512)),83" | sfdisk --force --append "$disk" >/var/log/zimdata-partition.log 2>&1
+		else
+			echo ',,83' | sfdisk --force --append "$disk" >/var/log/zimdata-partition.log 2>&1
+		fi
+		blockdev --rereadpt "$disk" 2>/dev/null
+
+		i=0
+		while [ ! -b "$part3" ] && [ "$i" -lt 10 ]; do
+			sleep 1
+			i=$((i + 1))
+		done
+	fi
+
+	if [ ! -b "$part3" ]; then
+		echo "S41zimdata: $part3 did not appear, giving up"
+		return 1
+	fi
+
+	if ! blkid "$part3" | grep -q 'TYPE="ext4"'; then
+		echo "S41zimdata: formatting $part3 as ext4 (label $LABEL)"
+		mke2fs -q -F -t ext4 -L "$LABEL" "$part3"
+	fi
+
+	mkdir -p "$MOUNTPOINT"
+	if ! mountpoint -q "$MOUNTPOINT"; then
+		mount "$part3" "$MOUNTPOINT"
+	fi
+}
+
+stop() {
+	umount "$MOUNTPOINT" 2>/dev/null
+}
+
+case "$1" in
+  start) start ;;
+  stop) stop ;;
+  restart|reload) stop; start ;;
+  *) echo "Usage: $0 {start|stop|restart}"; exit 1 ;;
+esac

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>StashPi tech specs — hardware, storage &amp; software stack</title>
+<meta name="description" content="Full technical specifications for StashPi: Raspberry Pi hardware options, microSD storage tiers, power requirements, the open-source software stack, and included reference libraries.">
+<link rel="canonical" href="https://www.yourdomain.example/specs.html">
+<link rel="stylesheet" href="style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#123b3e">
+<link rel="shortcut icon" href="assets/favicon/favicon.ico">
+<meta name="theme-color" content="#123B3E">
+<script>
+  (function() {
+    var t = 'dark';
+    try { t = localStorage.getItem('ib-shop-theme') || 'dark'; } catch (e) {}
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+  <header class="bar">
+    <div class="bar__wordmark"><a href="/"><img class="brandIcon" src="assets/brand/stashpi-icon.svg" alt="" width="28" height="28"><span class="wordmarkText"><span class="wordStash">Stash</span><span class="wordPi">Pi</span></span><span class="cursor" aria-hidden="true"></span></a></div>
+    <nav class="bar__nav" aria-label="Main">
+      <a href="index.html#shop">Shop</a>
+      <a href="demo.html">Demo</a>
+      <a href="how-to-use.html">How to use</a>
+      <a href="specs.html" aria-current="page">Tech specs</a>
+      <a href="warranty.html">Warranty</a>
+    </nav>
+    <div class="bar__actions">
+      <button type="button" class="iconBtn" id="themeToggle">Light mode</button>
+    </div>
+  </header>
+
+  <div class="docHero">
+    <h1>Tech specs</h1>
+    <p>Hardware options, storage tiers, power requirements, and the software stack underneath.</p>
+  </div>
+
+  <main class="docPage">
+    <section id="hardware">
+      <h2>Hardware options</h2>
+      <div class="tableWrap">
+        <table class="specsTable">
+          <thead>
+            <tr><th>Board</th><th>CPU</th><th>RAM</th><th>WiFi</th><th>Board size</th><th>Power</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Raspberry Pi 3B+</td><td>Quad-core Cortex-A53, 1.4GHz</td><td>1GB</td><td>802.11ac (2.4/5GHz)</td><td>85 × 56mm</td><td>5V / 2.5A, micro-USB</td></tr>
+            <tr><td>Raspberry Pi 4</td><td>Quad-core Cortex-A72, 1.5GHz</td><td>2–8GB</td><td>802.11ac (2.4/5GHz)</td><td>85 × 56mm</td><td>5V / 3A, USB-C</td></tr>
+            <tr><td>Raspberry Pi 5</td><td>Quad-core Cortex-A76, 2.4GHz</td><td>4–8GB</td><td>802.11ac (2.4/5GHz)</td><td>85 × 56mm</td><td>5V / 5A, USB-C</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The Pi 3B+ is fine for a single reader; the Pi 4 is a good default for a household or small group; the Pi 5 is the best choice if several people will be searching the library at once.</p>
+    </section>
+
+    <section id="storage">
+      <h2>Storage tiers</h2>
+      <div class="tableWrap">
+        <table class="specsTable" id="storageTable">
+          <thead><tr><th>Capacity</th><th>Add-on price</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p>The card size we recommend at checkout is automatically the smallest tier that fits your selected libraries plus OS overhead — you can always size up manually.</p>
+    </section>
+
+    <section id="library">
+      <h2>Included libraries</h2>
+      <p>Pick any combination at checkout — sizes shown are approximate and reflect the actual content as currently packaged.</p>
+      <div id="libraryTables"></div>
+    </section>
+
+    <section id="software">
+      <h2>Software stack</h2>
+      <ul>
+        <li><strong>Operating system:</strong> a custom, minimal Linux build (Buildroot) — no desktop environment, no unrelated services, just what's needed to serve the library.</li>
+        <li><strong>Content server:</strong> <a href="https://github.com/kiwix/kiwix-tools" target="_blank" rel="noopener">kiwix-serve</a>, built on <a href="https://github.com/kiwix/libkiwix" target="_blank" rel="noopener">libkiwix</a> and <a href="https://github.com/openzim/libzim" target="_blank" rel="noopener">libzim</a> — the same open-source engine that powers offline Wikipedia readers worldwide.</li>
+        <li><strong>Content format:</strong> ZIM archives — a compressed, indexed format purpose-built for offline knowledge bases.</li>
+        <li><strong>Networking:</strong> the Pi runs as its own WiFi access point (hostapd + dnsmasq), so no external router or internet connection is required.</li>
+        <li><strong>Interface:</strong> a custom web UI, reachable from any device's browser — no app to install.</li>
+      </ul>
+      <p>The device software is built on GPL and other open-source components. We provide corresponding source for our modifications on request, consistent with those licenses.</p>
+    </section>
+
+    <section id="boot">
+      <h2>Boot &amp; performance</h2>
+      <ul>
+        <li>Boots to a usable WiFi network and web server in under a minute.</li>
+        <li>Full-text search is served from a pre-built index on the card — no network round-trip, no external service.</li>
+        <li>Typical indoor WiFi range: roughly 30 feet, similar to a normal home router.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footerBrand"><img src="assets/brand/stashpi-icon.svg" alt="" width="20" height="20"><span class="wordmarkText"><span class="wordStash">Stash</span><span class="wordPi">Pi</span></span></div>
+    StashPi — built on Buildroot, kiwix-serve, and open content.
+    Content licenses vary by source; see each library's own terms.
+    <br>
+    <a href="how-to-use.html">How to use</a> ·
+    <a href="specs.html">Tech specs</a> ·
+    <a href="warranty.html">Warranty</a>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script src="config.js"></script>
+  <script>
+    function money(n) {
+      return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
+
+    const storageBody = document.querySelector('#storageTable tbody');
+    for (const c of SD_CARDS) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${c.capacityGb}GB</td><td>${money(c.price)}</td>`;
+      storageBody.appendChild(tr);
+    }
+
+    const libraryContainer = document.getElementById('libraryTables');
+    for (const group of ZIM_GROUPS) {
+      const wrap = document.createElement('div');
+      wrap.className = 'tableWrap';
+      const table = document.createElement('table');
+      table.className = 'specsTable';
+      const rows = group.zims
+        .map((z) => `<tr><td>${z.name}</td><td>${z.description}</td><td>${z.gb.toFixed(z.gb < 1 ? 3 : 1)} GB</td></tr>`)
+        .join('');
+      table.innerHTML = `
+        <thead><tr><th colspan="3">${group.label}</th></tr></thead>
+        <tbody>${rows}</tbody>
+      `;
+      wrap.appendChild(table);
+      libraryContainer.appendChild(wrap);
+    }
+  </script>
+</body>
+</html>
